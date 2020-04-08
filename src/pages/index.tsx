@@ -15,7 +15,7 @@ export interface IndexProps {
 
 export default function Index({ microphones }: IndexProps) {
   return (
-    <Grid container spacing={3} >
+    <Grid container spacing={3}>
       {microphones.map((microphone) => (
         <Grid item xs={12} sm={3}>
           <Link href="/microphone/[id]" as={`/microphone/${microphone.id}`}>
@@ -54,8 +54,18 @@ export default function Index({ microphones }: IndexProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
+  const currentPage = ctx.params?.currentPage as string;
+  const currentPageNumber = +(currentPage || 0);
+
+  const min = currentPageNumber * 5;
+  const max = (currentPageNumber + 1) * 5;
+
   const db = await openDB();
-  const microphones = await db.all('select * from microphone');
+  const microphones = await db.all(
+    'select * from microphone where id > ? and id <= ?',
+    min,
+    max
+  );
 
   return { props: { microphones } };
 };
