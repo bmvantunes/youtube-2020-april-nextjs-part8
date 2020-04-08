@@ -17,7 +17,7 @@ export default function Index({ microphones }: IndexProps) {
   return (
     <Grid container spacing={3}>
       {microphones.map((microphone) => (
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={3} key={microphone.id}>
           <Link href="/microphone/[id]" as={`/microphone/${microphone.id}`}>
             <a>
               <Card>
