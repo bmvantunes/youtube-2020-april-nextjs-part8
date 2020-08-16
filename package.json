@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "node ./test-migration.js && next dev",
     "build": "node ./test-migration.js && next build",
+    "export": "next export",
     "start": "next start"
   },
   "dependencies": {
